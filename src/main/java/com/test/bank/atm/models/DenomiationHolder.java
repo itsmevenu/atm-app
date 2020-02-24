@@ -10,8 +10,7 @@ public class DenomiationHolder {
         this.availableCount = availableCount;
     }
 
-
-    public int getDenom() {
+    public int getDenominator() {
         return denom;
     }
 
@@ -19,4 +18,13 @@ public class DenomiationHolder {
         return availableCount;
     }
 
+    public void incrementDollarCount(int numberOfDollarstoAdd) {
+        this.availableCount += numberOfDollarstoAdd;
+    }
+
+    public void print() {
+        System.out.println("Denomination      : " + denom);
+        System.out.println("Available Dollars : " + availableCount);
+    }
+    
 }
