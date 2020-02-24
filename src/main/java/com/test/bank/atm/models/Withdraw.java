@@ -1,5 +1,7 @@
 package com.test.bank.atm.models;
 
+import com.test.bank.atm.Main;
+
 public class Withdraw extends AbstractAtmModel {
 
     public Withdraw(DenomiationHolder amountHolder) {
@@ -7,6 +9,6 @@ public class Withdraw extends AbstractAtmModel {
     }
 
     public void execute() {
-
+        getExistingDollarSource().decrementDollarCount(amount.getDollarCount());
     }
 }

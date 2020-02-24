@@ -16,6 +16,10 @@ public class DenomiationHolder {
         return denomination;
     }
 
+    public int getAvailableCash() {
+        return getDenominator() * getDollarCount();
+    }
+
     public int getDollarCount() {
         return dollarCount;
     }
@@ -33,8 +37,8 @@ public class DenomiationHolder {
     }
 
     public void print() {
-        System.out.println("Denomination      : " + denomination);
-        System.out.println("Available Dollars : " + dollarCount);
+        System.out.println("Denomination : " + denomination);
+        System.out.println("Dollars      : " + dollarCount);
     }
 
     public JSONObject toJson() {
