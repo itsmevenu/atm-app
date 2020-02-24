@@ -2,8 +2,6 @@ package com.test.bank.atm.models;
 
 import com.test.bank.atm.Main;
 
-import java.util.Optional;
-
 public abstract  class AbstractAtmModel {
 
     DenomiationHolder amount;

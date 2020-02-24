@@ -28,6 +28,10 @@ public class UserData {
                 System.out.println("Invalid Denomination");
                 continue;
             }
+            if(count < 0) {
+                System.out.println("Incorrect deposit amount.");
+                continue;
+            }
             DenomiationHolder denomiationHolder = new DenomiationHolder(denominationUnit.get(), count);
             denomiationHolders.add(denomiationHolder);
             System.out.println("press y to continue entering or any characters to exit");
@@ -57,6 +61,9 @@ public class UserData {
 
     public void toWithDraw(int amountToBeWithDrawn) {
         Withdrawer withdrawer = new Withdrawer(amountToBeWithDrawn);
+        if(!withdrawer.isValid()) {
+            return;
+        }
         withdrawer.prepareDispenser();
 
         if (withdrawer.getAmountRemainingToDispense() > 0) {

@@ -48,22 +48,18 @@ public class Main {
         userOption = sc.nextInt();
         UserData userData = new UserData();
         switch (userOption) {
-            case 1: {
+            case 1:
                 userData.toDeposit(userData.getDenominations());
                 break;
-            }
-            case 2: {
+            case 2:
                 userData.toWithDraw(userData.getAmountToBeWithDrawn());
                 break;
-            }
-            case 3: {
+            case 3:
                 userData.printAll();
                 break;
-            }
-            default: {
+            default:
                 System.out.println("Exiting ...");
                 break;
-            }
         }
     }
 

@@ -1,7 +1,5 @@
 package com.test.bank.atm.models;
 
-import com.test.bank.atm.Main;
-
 public class Withdraw extends AbstractAtmModel {
 
     public Withdraw(DenomiationHolder amountHolder) {

@@ -3,8 +3,6 @@ package com.test.bank.atm.service;
 import com.test.bank.atm.Main;
 import com.test.bank.atm.models.DenomiationHolder;
 import com.test.bank.atm.models.Withdraw;
-import com.test.bank.atm.models.enums.DenominationUnit;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +21,7 @@ public class Withdrawer {
     }
 
     // validates the amount.
-    private boolean isValid() {
+    public boolean isValid() {
         if (amountToWithDraw <= 0) {
             System.out.println("Incorrect or insufficient funds to dispense.");
             return false;
