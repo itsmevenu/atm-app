@@ -1,19 +1,24 @@
 package com.test.bank.atm.models;
 
+import com.test.bank.atm.models.enums.DenominationUnit;
 import org.json.JSONObject;
 
 public class DenomiationHolder {
 
-    private int denomination;
+    private DenominationUnit denomination;
     private int dollarCount;
 
-    public DenomiationHolder(int denomination, int availableCount) {
+    public DenomiationHolder(DenominationUnit denomination, int availableCount) {
         this.denomination = denomination;
         this.dollarCount = availableCount;
     }
 
-    public int getDenominator() {
+    public DenominationUnit getDenominatorUnit() {
         return denomination;
+    }
+
+    public int getDenominator() {
+        return denomination.getVal();
     }
 
     public int getAvailableCash() {
@@ -37,13 +42,13 @@ public class DenomiationHolder {
     }
 
     public void print() {
-        System.out.println("Denomination : " + denomination);
+        System.out.println("Denomination : $" + denomination.getVal());
         System.out.println("Dollars      : " + dollarCount);
     }
 
     public JSONObject toJson() {
         JSONObject obj = new JSONObject();
-        obj.put("denomination", denomination);
+        obj.put("denomination", denomination.getVal());
         obj.put("available_count", dollarCount);
         return obj;
     }

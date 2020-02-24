@@ -1,103 +1,70 @@
 package com.test.bank.atm;
 
 import com.test.bank.atm.models.DenomiationHolder;
-import com.test.bank.atm.models.Deposit;
-import com.test.bank.atm.models.ErrorMessages;
-import com.test.bank.atm.service.Depositor;
-import com.test.bank.atm.service.Withdrawer;
+import com.test.bank.atm.models.enums.DenominationUnit;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
-    public static List<DenomiationHolder> dollarSource = new ArrayList<>();
+    public static TreeMap<Integer, DenomiationHolder> atmWallet = new TreeMap<>(Collections.reverseOrder());
 
     public static void main(String[] args) {
+        loadData();
+        getUserInput();
+    }
 
-        System.out.println("Hello World!");
-
-
-
-        String s = "[\n" +
-                "   {\n" +
-                "      \"denomination\":20,\n" +
-                "      \"count\":2\n" +
-                "   },\n" +
-                "   {\n" +
-                "      \"denomination\":10,\n" +
-                "      \"count\":3\n" +
-                "   }\n" +
-                "]";
-
+    public static void loadData() {
+        String s = null;
         File f = new File("denominations_source.json");
         try {
-            FileUtils.writeStringToFile(f, s, "UTF-8");
-        } catch(Exception e) {
+            s = FileUtils.readFileToString(f, "UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-
         JSONArray array = new JSONArray(s);
 
-        for(int i =0; i< array.length(); i++) {
+        for (int i = 0; i < array.length(); i++) {
             JSONObject o = array.getJSONObject(i);
-            DenomiationHolder denomiationHolder =
-                    new DenomiationHolder(o.getInt("denomination"), o.getInt("count"));
-            dollarSource.add(denomiationHolder);
-
+            DenominationUnit denom = DenominationUnit.get(o.getInt("denomination")).get();
+            DenomiationHolder denomiationHolder = new DenomiationHolder(denom, o.getInt("count"));
+            atmWallet.put(denom.getVal(), denomiationHolder);
         }
-
-        depositTest();
-        depositTest();
-        printAll(dollarSource);
-        withDrawTest();
-        printAll(dollarSource);
     }
 
-    private static void printAll(List<DenomiationHolder> list) {
-       int total=0;
-        System.out.println("--------------------------------------------------");
-        for (DenomiationHolder d : list) {
-            d.print();
-            total += d.getAvailableCash();
+    public static void getUserInput() {
+        Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
+        System.out.println("******** Enter your choice *********");
+        int userOption;
+        System.out.println("1. Deposit ");
+        System.out.println("2. Withdraw ");
+        System.out.println("3. Check Balance ");
+        System.out.println("4. Exit");
+        userOption = sc.nextInt();
+        UserData userData = new UserData();
+        switch (userOption) {
+            case 1: {
+                userData.toDeposit(userData.getDenominations());
+                break;
+            }
+            case 2: {
+                userData.toWithDraw(userData.getAmountToBeWithDrawn());
+                break;
+            }
+            case 3: {
+                userData.printAll();
+                break;
+            }
+            default: {
+                System.out.println("Exiting ...");
+                break;
+            }
         }
-        System.out.println("Total : " + total);
-        System.out.println("--------------------------------------------------");
-    }
-
-
-
-    private static void depositTest() {
-
-        List<Deposit> toDeposit = new ArrayList<Deposit>();
-        DenomiationHolder obj = new DenomiationHolder(20, 1);
-        DenomiationHolder obj1 = new DenomiationHolder(10, 2);
-       // DenomiationHolder obj2 = new DenomiationHolder(5, 2);
-
-        toDeposit.add(new Deposit(obj));
-        toDeposit.add(new Deposit(obj1));
-      //  toDeposit.add(new Deposit(obj2));
-
-        Depositor depositor = new Depositor();
-        depositor.depositAll(toDeposit);
-
-    }
-
-    private static void withDrawTest() {
-        Withdrawer withdrawer = new Withdrawer(149);
-        withdrawer.prepareDispenser();
-
-        if(withdrawer.getAmountRemainingToDispense() > 0) {
-            System.out.println(ErrorMessages.INSUFFICIENT_FUNDS);
-            return;
-        }
-
-        withdrawer.withDrawAll();
     }
 
 }

@@ -13,13 +13,12 @@ public abstract  class AbstractAtmModel {
     }
 
     public DenomiationHolder getExistingDollarSource() {
-        Optional<DenomiationHolder> existingDenominations =
-                Main.dollarSource.stream().filter(d -> d.getDenominator() == amount.getDenominator()).findFirst();
-        if(!existingDenominations.isPresent()) {
+        DenomiationHolder existingDenominations = Main.atmWallet.get(amount.getDenominator());
+        if(existingDenominations == null) {
             System.out.println("Unexpected!! Given Denomination Not found!");
             throw new RuntimeException("Unexpcted");
         }
-        return existingDenominations.get();
+        return existingDenominations;
     }
 
     public abstract void execute();
