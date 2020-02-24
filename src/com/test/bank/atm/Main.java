@@ -1,3 +1,4 @@
+package com.test.bank.atm;
 
 public class Main {
 
