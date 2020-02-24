@@ -16,12 +16,20 @@ public class DenomiationHolder {
         return denomination;
     }
 
-    public int getAvailableCount() {
+    public int getDollarCount() {
         return dollarCount;
     }
 
     public void incrementDollarCount(int numberOfDollarstoAdd) {
         this.dollarCount += numberOfDollarstoAdd;
+    }
+
+    public void decrementDollarCount(int numberOfDollarsToDecrement) {
+        if (dollarCount < 0 || dollarCount < numberOfDollarsToDecrement) {
+            System.out.println("Cannot Dispense Amount!");
+            return;
+        }
+        this.dollarCount -= numberOfDollarsToDecrement;
     }
 
     public void print() {

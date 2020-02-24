@@ -8,8 +8,10 @@ import java.util.List;
 public class Depositor {
 
     public void depositAll(List<Deposit> toDeposit) {
+
         for (Deposit deposit : toDeposit) {
-            deposit.persist();
+            deposit.execute();
         }
+
     }
 }
