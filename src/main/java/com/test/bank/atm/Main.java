@@ -14,8 +14,12 @@ public class Main {
     public static TreeMap<Integer, DenomiationHolder> atmWallet = new TreeMap<>(Collections.reverseOrder());
 
     public static void main(String[] args) {
-        loadData();
-        getUserInput();
+        try {
+            loadData();
+            getUserInput();
+        } finally {
+            writeInFile();
+        }
     }
 
     public static void loadData() {
@@ -68,6 +72,22 @@ public class Main {
             default:
                 System.out.println("Exiting ...");
                 break;
+        }
+    }
+
+    private static void writeInFile() {
+        File f = new File("denominations_source.json");
+        try {
+            JSONArray array = new JSONArray();
+            for (Map.Entry<Integer, DenomiationHolder> e : atmWallet.entrySet()) {
+                DenomiationHolder value = e.getValue();
+                array.put(value.toJson());
+            }
+            if(array.length() > 1) {
+                FileUtils.writeStringToFile(f, array.toString(), "UTF-8", false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -49,7 +49,7 @@ public class DenomiationHolder {
     public JSONObject toJson() {
         JSONObject obj = new JSONObject();
         obj.put("denomination", denomination.getVal());
-        obj.put("available_count", dollarCount);
+        obj.put("count", dollarCount);
         return obj;
     }
 
