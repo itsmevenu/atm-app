@@ -37,15 +37,23 @@ public class Main {
         }
     }
 
-    public static void getUserInput() {
+    private static void getUserInput() {
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
         System.out.println("******** Enter your choice *********");
         int userOption;
-        System.out.println("1. Deposit ");
-        System.out.println("2. Withdraw ");
-        System.out.println("3. Check Balance ");
-        System.out.println("4. Exit");
-        userOption = sc.nextInt();
+
+        do {
+            System.out.println("1. Deposit ");
+            System.out.println("2. Withdraw ");
+            System.out.println("3. Check Balance ");
+            System.out.println("4. Exit");
+            userOption = sc.nextInt();
+            printConsole(userOption);
+        } while(userOption !=4 );
+
+    }
+
+    private static void printConsole(int userOption) {
         UserData userData = new UserData();
         switch (userOption) {
             case 1:
