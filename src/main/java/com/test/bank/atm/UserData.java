@@ -54,9 +54,21 @@ public class UserData {
                         toDeposit.add(new Deposit(denomiationHolder))
                 );
 
+        if(hasAllZero(denomiationHolders)) {
+            System.out.println("Deposit amount cannot be zero");
+            return;
+        }
         Depositor depositor = new Depositor();
         depositor.depositAll(toDeposit);
         printAll();
+    }
+
+    public boolean hasAllZero(List<DenomiationHolder> denomiationHolders){
+        int sum = 0;
+        for (DenomiationHolder deposit: denomiationHolders) {
+            sum += deposit.getDollarCount();
+        }
+        return sum <= 0;
     }
 
     public void toWithDraw(int amountToBeWithDrawn) {
